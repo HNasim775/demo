@@ -4,42 +4,35 @@ pipeline {
         stage("Clone") {
             steps {
                 echo 'Cloning repository...'
-                // Ajoutez ici la commande pour cloner le référentiel Git
-                // Exemple : git clone <URL_DU_REPO>
+                git branch: 'main', URL: https://github.com/HNasim775/demo.git
             }
         }
         stage("Empty current directory and git clone") {
             steps {
                 echo 'Emptying current directory...'
-                // Ajoutez ici la commande pour vider le dossier courant
-                // Exemple : rm -rf ./*
+                rm -rf ./
                 echo 'Cloning repository...'
-                // Ajoutez ici la commande pour cloner le référentiel Git
-                // Exemple : git clone <URL_DU_REPO>
+                https://github.com/HNasim775/demo.git
             }
         }
         stage("Build") {
             steps {
                 echo 'Building...'
-                // Ajoutez ici les commandes pour construire votre application
-                // Exemple : mvn clean install
+                clean install compile test package verify 
             }
         }
         stage("Change directory and build") {
             steps {
                 echo 'Changing directory...'
-                // Ajoutez ici la commande pour vous déplacer dans le dossier cloné
-                // Exemple : cd <NOM_DU_DOSSIER_CLONE>
+                cd .\demo
                 echo 'Building...'
-                // Ajoutez ici les commandes pour construire votre application à partir du dossier cloné
-                // Exemple : mvn clean install
+                mvn clean install
             }
         }
         stage("Run") {
             steps {
                 echo 'Running application...'
-                // Ajoutez ici les commandes pour lancer votre application
-                // Exemple : java -jar <NOM_DU_JAR>
+                java -jar /var/jenkins_home/workspace/MonPremierMAVEN/target/demo-1.0-SNAPSHOT.jar
             }
         }
         stage("Final Echo") {
